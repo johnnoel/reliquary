@@ -5,7 +5,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: path.resolve(__dirname, 'src/index.tsx'),
     module: {
         rules: [
             {
@@ -22,9 +22,11 @@ module.exports = {
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: () => ([
-                                require('autoprefixer'),
-                            ]),
+                            postcssOptions: {
+                                plugins: () => ([
+                                    require('autoprefixer'),
+                                ]),
+                            },
                         },
                     },
                     'sass-loader',
@@ -37,9 +39,15 @@ module.exports = {
             },
         ],
     },
-    resolve: { extensions: [ '.ts', '.tsx', '.js', '.jsx' ] },
+    resolve: {
+        extensions: [ '.ts', '.tsx', '.js', '.jsx' ],
+        alias: {
+            react: 'preact/compat',
+            'react-dom': 'preact/compat',
+        }
+    },
     output: {
-        filename: 'index.[contenthash].js',
+        filename: '[name].[contenthash].js',
         chunkFilename: '[id].[contenthash].js',
         path: path.resolve(__dirname, 'public/build/'),
         publicPath: '/build/',
@@ -47,7 +55,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css',
+            filename: '[name].[contenthash].css',
             chunkFilename: '[id].[contenthash].css',
             ignoreOrder: false,
         }),
