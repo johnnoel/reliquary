@@ -5,7 +5,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src/index.tsx'),
+    entry: path.resolve(__dirname, 'index.tsx'),
     module: {
         rules: [
             {
@@ -49,7 +49,7 @@ module.exports = {
     output: {
         filename: '[name].[contenthash].js',
         chunkFilename: '[id].[contenthash].js',
-        path: path.resolve(__dirname, 'public/build/'),
+        path: path.resolve(__dirname, '../public/build/'),
         publicPath: '/build/',
     },
     plugins: [
@@ -59,10 +59,10 @@ module.exports = {
             chunkFilename: '[id].[contenthash].css',
             ignoreOrder: false,
         }),
-        new WebpackManifestPlugin(),
+        //new WebpackManifestPlugin(),
         new HtmlWebpackPlugin({
             filename: '../index.html',
-            template: 'src/index.html',
+            template: path.resolve(__dirname, 'index.html'),
         }),
     ],
 };
