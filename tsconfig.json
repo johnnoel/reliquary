@@ -5,6 +5,7 @@
         "sourceMap": true,
         "jsx": "react-jsx",
         "jsxImportSource": "preact",
+        "resolveJsonModule": true,
         "baseUrl": ".",
         "paths": {
             "react": [ "node_modules/preact/compat/" ],
