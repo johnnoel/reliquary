@@ -1,56 +1,21 @@
-import styled from 'styled-components';
+import toPairs from 'lodash/toPairs';
+import classNames from 'classnames';
+import { OptionSet } from '../options';
 
-const Container = styled.div`
-    width: 43vh;
-    height: 517px;
-    margin: 0 auto;
-    border-left: 13px solid #A9A48B;
-    position: relative;
-    padding-left: 52px;
-
-    &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        left: 7px;
-        top: 0;
-        width: 4px;
-        height: 100%;
-        background: #A9A48B;
-    }
-`;
-
-const Modal = styled.div`
-    background: #D6D3B9;
-    position: absolute;
-    left: 52px;
-    top: 0;
-    height: 100%;
-    overflow-y: scroll;
-    scrollbar-color: #4D4941 #D6D3B9;
-`;
-
-const Option = styled.div`
-    font-size: 22px;
-    padding: 12px 0 12px 20px;
-
-    & + & {
-        margin-top: 35px;
-    }
-`;
-
-const OptionSelector = ({ options }: OptionSelectorProps) => (
-    <Container>
-        <Modal>
-            {options.map(option => (
-                <Option>{option}</Option>
+const OptionSelector = ({ options, selected, onSelect }: OptionSelectorProps) => (
+    <div className="optionselector-container">
+        <div className="optionselector-modal">
+            {toPairs(options).map(([ key, option ]) => (
+                <div key={key} className={classNames('optionselector-option', { 'active': selected === key })} onClick={() => onSelect(key)}>{option}</div>
             ))}
-        </Modal>
-    </Container>
+        </div>
+    </div>
 );
 
 interface OptionSelectorProps {
-    options: string[];
+    options: OptionSet;
+    selected: string|undefined;
+    onSelect(selected: string): void;
 }
 
 export default OptionSelector;

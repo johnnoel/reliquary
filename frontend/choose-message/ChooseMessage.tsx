@@ -1,47 +1,41 @@
-import styled from 'styled-components';
 import OptionSelector from './OptionSelector';
-import options from '../options.json';
+import { useState } from 'preact/hooks';
+import classNames from 'classnames';
+import options from '../options';
 
-const MessagePartSelector = styled.div`
-    width: 93.75vh;
-    margin: 0 auto 45px;
-    border-top: 2px solid #4D4941;
-    border-bottom: 2px solid #4D4941;
-    padding: 37px 0;
-    text-align: center;
-    font-size: 22px;
-`;
+const ChooseMessage = () => {
+    const [ active, setActive ] = useState<number|null>(null);
+    const [ selected, setSelected ] = useState<string[]>([]);
 
-const Button = styled.button`
-    background: none;
-    border: none;
-    padding: 4px;
-    line-height: 1;
-    text-decoration: underline;
-    cursor: pointer;
-
-    & + & {
-        margin-left: 12px;
-    }
-
-    &.active {
-        background: #4D4941;
-        color: #9C5448;
-        text-decoration: none;
-    }
-`;
-
-const ChooseMessage = () => (
-    <div>
-        <MessagePartSelector>
+    return <div>
+        <div className="choosemessage-partselector">
             &quot;
-            <Button type="button" className="active">[A hollowed-out doll]</Button>
-            <Button type="button">[fell with grace]</Button>
-            <Button type="button">[during a pointless battle]</Button>
+            <button type="button" className={classNames('choosemessage-btn', { 'active': active === 0 })} onClick={() => setActive(0)}>[{getOption(0, selected[0])}]</button>
+            <button type="button" className={classNames('choosemessage-btn', { 'active': active === 1 })} onClick={() => setActive(1)}>[{getOption(1, selected[1])}]</button>
+            <button type="button" className={classNames('choosemessage-btn', { 'active': active === 2 })} onClick={() => setActive(2)}>[{getOption(2, selected[2])}]</button>
             .&quot;
-        </MessagePartSelector>
-        <OptionSelector options={options[1]} />
+        </div>
+
+        {(active !== null) ? <OptionSelector options={options[active]} selected={selected[active]} onSelect={(sel) => {
+            const newSelected = selected.slice(0);
+            newSelected[active] = sel;
+            setSelected(newSelected);
+        }} /> : null}
     </div>
-);
+}
+
+const getOption = (optionSet: number, selected: string|undefined): string => {
+    if (selected === undefined) {
+        return 'Please select...';
+    }
+
+    const opts = options[optionSet];
+
+    if (typeof opts[selected] === 'undefined') {
+        return 'Please select...';
+    }
+
+    return opts[selected];
+}
 
 export default ChooseMessage;

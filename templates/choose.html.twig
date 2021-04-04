@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
+{% set body_class = 'choosemessage' %}
 
 {% block body %}
-    <form method="post" action="{{ path('choose-message') }}">
+    <div id="app"></div>
+    <form class="nojs-choosemessage" method="post" action="{{ path('choose-message') }}">
         <fieldset>
-            <legend>Choose a message</legend>
+            <legend>{% if message is not null %}Change your message{% else %}Choose a message{% endif %}</legend>
             <select name="p1" required>
                 <option value="">Please select...</option>
                 {% for k, v in constant('App\\Service\\MessageService::PART_1') %}
@@ -26,6 +28,6 @@
             </select>
         </fieldset>
 
-        <button type="submit">Choose</button>
+        <button type="submit">{% if message is not null %}Change{% else %}Choose{% endif %}</button>
     </form>
 {% endblock body %}

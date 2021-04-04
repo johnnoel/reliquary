@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>NieR Automata Reliquary System</h1>
-    <p>An online version of the "reliquary" system from NieR Automata; limited to only one unique message per person.</p>
+    <p>An online version of <a href="https://nierautomata.wiki.fextralife.com/Reliquary+System" target="_blank" rel="nofollow noopener">the "reliquary" message system from NieR Automata</a>; limited to only one unique message per person.</p>
 
     <ul>
-        <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}">Login with Twitter and choose your message</a></li>
+        {% if app.user is not null %}
+            <li><a href="{{ path('choose-message') }}">Choose your message</a></li>
+        {% else %}
+            <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}">Login with Twitter and choose your message</a></li>
+        {% endif %}
         <li><a href="{{ path('random') }}">See a random message</a></li>
     </ul>
 {% endblock %}

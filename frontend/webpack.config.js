@@ -5,7 +5,10 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'index.tsx'),
+    entry: {
+        main: path.resolve(__dirname, 'index.tsx'),
+        head: path.resolve(__dirname, 'head.ts'),
+    },
     module: {
         rules: [
             {
