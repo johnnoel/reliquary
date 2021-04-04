@@ -118,7 +118,10 @@
             <property name="allowMultiLine" value="false" />
         </properties>
     </rule>
+    <!--
+    Disabled due to PHP 8.0 constructors able to be empty
     <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction" />
+    -->
     <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses" />
     <rule ref="SlevomatCodingStandard.Namespaces.UseSpacing">
         <properties>

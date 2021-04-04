@@ -2,7 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         default:
-            id: hwi_oauth.user.provider
+            id: App\Security\UserProvider
 
     firewalls:
         dev:
@@ -20,7 +20,8 @@ security:
                 use_forward: false
                 failure_path: /login
                 oauth_user_provider:
-                    service: hwi_oauth.user.provider
+                    service: App\Security\UserProvider
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/choose-message, roles: ROLE_USER }

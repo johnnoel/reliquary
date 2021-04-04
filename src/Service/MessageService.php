@@ -280,12 +280,7 @@ class MessageService
 
         $json = json_decode($messageJson);
 
-        if (
-            $json === null ||
-            !array_key_exists($json->p1, self::PART_1) ||
-            !array_key_exists($json->p2, self::PART_2) ||
-            !array_key_exists($json->p3, self::PART_3)
-        ) {
+        if ($json === null || !$this->isValidMessage($json->p1, $json->p2, $json->p3)) {
             return null;
         }
 
@@ -294,5 +289,50 @@ class MessageService
         $part3 = self::PART_3[$json->p3];
 
         return new Message($twitterId, $json->n, $part1, $part2, $part3);
+    }
+
+    public function isMessageAvailable(string $part1, string $part2, string $part3): bool
+    {
+        if (!$this->isValidMessage($part1, $part2, $part3)) {
+            return false;
+        }
+
+        return !$this->redis->sIsMember('takenMessages', $this->getMessageKey($part1, $part2, $part3));
+    }
+
+    public function assignMessage(
+        string $twitterId,
+        string $twitterName,
+        string $part1,
+        string $part2,
+        string $part3
+    ): void {
+        $json = json_encode([
+            'n' => $twitterName,
+            'p1' => $part1,
+            'p2' => $part2,
+            'p3' => $part3,
+        ]);
+
+        if ($json === false) {
+            throw new \RuntimeException('Unable to JSON encode message');
+        }
+
+        $this->redis->hSet('messages', $twitterId, $json);
+        $this->redis->sAdd('takenMessages', $this->getMessageKey($part1, $part2, $part3));
+    }
+
+    private function isValidMessage(string $part1, string $part2, string $part3): bool
+    {
+        return
+            array_key_exists($part1, self::PART_1) &&
+            array_key_exists($part2, self::PART_2) &&
+            array_key_exists($part3, self::PART_3)
+        ;
+    }
+
+    private function getMessageKey(string $part1, string $part2, string $part3): string
+    {
+        return implode('|', [ $part1, $part2, $part3 ]);
     }
 }
