@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +23,11 @@ class DefaultController extends AbstractController
     /**
      * @Route("/{twitterId}", name="body-report", methods={"GET"}, requirements={"twitterId": "\d+"})
      */
-    public function bodyReport(string $twitterId): Response
+    public function bodyReport(Message $message): Response
     {
-        return $this->render('body-report.html.twig');
+        return $this->render('body-report.html.twig', [
+            'message' => $message,
+        ]);
     }
 
     /**
