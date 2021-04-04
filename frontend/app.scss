@@ -1,11 +1,24 @@
 @import '~normalize.css/normalize.css';
+@import 'button';
+@import 'bodyreport';
+
+html {
+    min-height: 100vh;
+}
 
 body {
-    font-family: fot-rodin-pron, sans-serif;
+    font-family: fot-rodin-pron, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-style: normal;
-    font-weight: 600;
-    //background: #1B1915;
-    //color: #D6D3B9;
     background: #c2bfa5;
     color: #1B1915;
+    height: 100%;
+
+    &.wf-active {
+        font-weight: 600;
+    }
+
+    &.bodyreport {
+        background: #1B1915;
+        color: #D6D3B9;
+    }
 }

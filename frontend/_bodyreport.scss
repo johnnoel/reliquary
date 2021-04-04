@@ -1,0 +1,49 @@
+.bodyreport {
+    &-container {
+        border: 2px solid #D6D3B9;
+        padding: 26px 62px 80px;
+        text-align: center;
+        width: 65vw;
+        margin: 0 auto 120px;
+    }
+
+    &-title {
+        margin: 0 0 24px;
+        line-height: 1;
+        font-size: 28px;
+    }
+
+    &-username {
+        margin: 0 0 21px;
+        line-height: 1;
+        font-size: 18px;
+    }
+
+    &-divider {
+        border: none;
+        border-top: 2px solid #D6D3B9;
+        margin: 0 0 90px;
+    }
+
+    &-message {
+        font-size: 22px;
+    }
+
+    &-buttonlist {
+        border-left: 14px solid #B0AC97;
+        padding-left: 54px;
+        position: relative;
+        width: 30vw;
+        margin: 0 auto;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: #B0AC97;
+        }
+    }
+}

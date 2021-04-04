@@ -2,8 +2,12 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Looking for the code behind this project? Check out https://github.com/johnnoel/nier-automata-reliquary -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>{% block title %}NieR Automata Reliquary System!{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('main.css') }}">
+    <script defer src="{{ asset('main.js') }}"></script>
 
     <script>
         (function(d) {
@@ -11,9 +15,10 @@
                 h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
         })(document);
     </script>
-    <script defer src="{{ asset('main.js') }}"></script>
 </head>
-<body>
+<body class="{{ body_class|default('') }}">
+<main role="main">
     {% block body %}{% endblock %}
+</main>
 </body>
 </html>

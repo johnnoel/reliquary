@@ -8,6 +8,7 @@ use App\Entity\Message;
 use App\Entity\User;
 use App\Service\MessageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -36,7 +37,13 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/choose-message', name: 'choose-message', methods: [ 'GET', 'POST' ])]
+    #[Route(
+        '/choose-message.{_format}',
+        name: 'choose-message',
+        requirements: [ '_format' => '|json' ],
+        defaults: [ '_format' => 'html' ],
+        methods: [ 'GET', 'POST' ]
+    )]
     public function chooseMessage(Request $request, UserInterface $user): Response
     {
         if (!($user instanceof User)) {
@@ -56,10 +63,18 @@ class DefaultController extends AbstractController
 
             $this->messageService->assignMessage($user->getId(), $user->getUsername(), $part1, $part2, $part3);
 
-            return new Response('', Response::HTTP_CREATED);
+            if ($request->getRequestFormat() === 'json') {
+                return new Response('', Response::HTTP_CREATED);
+            }
+
+            return $this->redirectToRoute('body-report', [ 'twitterId' => $user->getId() ]);
         }
 
-        return $this->render('choose.html.twig');
+        $existingMessage = $this->messageService->getMessageByTwitterId($user->getId());
+
+        return $this->render('choose.html.twig', [
+            'message' => $existingMessage,
+        ]);
     }
 
     #[Route('/is-message-available', name: 'is-message-available', methods: [ 'GET' ])]
@@ -78,5 +93,13 @@ class DefaultController extends AbstractController
         }
 
         return new Response('', Response::HTTP_NOT_FOUND);
+    }
+
+    #[Route('/random', name: 'random', methods: [ 'GET' ])]
+    public function random(): RedirectResponse
+    {
+        $twitterId = $this->messageService->getRandomTwitterId();
+
+        return $this->redirectToRoute('body-report', [ 'twitterId' => $twitterId ], Response::HTTP_FOUND);
     }
 }

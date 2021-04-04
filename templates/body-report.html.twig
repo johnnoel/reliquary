@@ -1,0 +1,25 @@
+{% set body_class = 'bodyreport' %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <div class="bodyreport-container">
+            <h1 class="bodyreport-title">Body Report</h1>
+            <h2 class="bodyreport-username">{{ message.twitterHandle }}</h2>
+            <hr class="bodyreport-divider" />
+            <p class="bodyreport-message">{{ message }}</p>
+        </div>
+        <div>
+            <div class="bodyreport-buttonlist">
+                {% if app.user is not null and app.user.id == message.twitterId %}
+                    <a href="{{ path('choose-message') }}" class="btn active">Change Message</a>
+                {% else %}
+                    <a href="{{ path('choose-message') }}" class="btn">Claim Your Own Message</a>
+                {% endif %}
+                <a href="{{ path('random') }}" class="btn">See Another Random Message</a>
+            </div>
+        </div>
+    </div>
+
+    <noscript>You will need JavaScript to use the advanced features of this app</noscript>
+{% endblock body %}

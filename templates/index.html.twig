@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <main role="main">
-        <a href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}">Login</a>
-        <div id="app"></div>
-        <noscript>You will need JavaScript to use the advanced features of this app</noscript>
-    </main>
+    <h1>NieR Automata Reliquary System</h1>
+    <p>An online version of the "reliquary" system from NieR Automata; limited to only one unique message per person.</p>
+
+    <ul>
+        <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}">Login with Twitter and choose your message</a></li>
+        <li><a href="{{ path('random') }}">See a random message</a></li>
+    </ul>
 {% endblock %}

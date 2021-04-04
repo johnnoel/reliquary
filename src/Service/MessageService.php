@@ -8,7 +8,7 @@ use App\Entity\Message;
 
 class MessageService
 {
-    private const PART_1 = [
+    public const PART_1 = [
         'username' => '[Username]',
         'i' => 'I',
         'nameless' => 'A nameless android',
@@ -66,7 +66,7 @@ class MessageService
         'poorlamb' => 'A poor lamb',
     ];
 
-    private const PART_2 = [
+    public const PART_2 = [
         'collapsed' => 'collapsed',
         'fell' => 'fell',
         'powerless' => 'felt utterly powerless',
@@ -193,7 +193,7 @@ class MessageService
         'laughing' => 'heard a girl laughing merrily',
     ];
 
-    private const PART_3 = [
+    public const PART_3 = [
         'cradle' => 'in a cradle in the sky',
         'bunker' => 'at the Bunker, looking at Earth',
         'hq' => 'at YoRHa HQ',
@@ -288,7 +288,9 @@ class MessageService
         $part2 = self::PART_2[$json->p2];
         $part3 = self::PART_3[$json->p3];
 
-        return new Message($twitterId, $json->n, $part1, $part2, $part3);
+        $message = implode(' ', [ $part1, $part2, $part3 ]);
+
+        return new Message($twitterId, $json->n, $message, $json->p1, $json->p2, $json->p3);
     }
 
     public function isMessageAvailable(string $part1, string $part2, string $part3): bool
@@ -319,7 +321,13 @@ class MessageService
         }
 
         $this->redis->hSet('messages', $twitterId, $json);
+        $this->redis->sAdd('seenTwitterIds', $twitterId);
         $this->redis->sAdd('takenMessages', $this->getMessageKey($part1, $part2, $part3));
+    }
+
+    public function getRandomTwitterId(): string
+    {
+        return $this->redis->sRandMember('seenTwitterIds');
     }
 
     private function isValidMessage(string $part1, string $part2, string $part3): bool

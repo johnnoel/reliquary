@@ -1,4 +1,31 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-Hey
-{% endblock %}
+    <form method="post" action="{{ path('choose-message') }}">
+        <fieldset>
+            <legend>Choose a message</legend>
+            <select name="p1" required>
+                <option value="">Please select...</option>
+                {% for k, v in constant('App\\Service\\MessageService::PART_1') %}
+                    <option value="{{ k }}"{% if message is not null and message.part1 == k %} selected{% endif %}>{{ v|replace({ '[Username]': app.user.username }) }}</option>
+                {% endfor %}
+            </select>
+
+            <select name="p2" required>
+                <option value="">Please select...</option>
+                {% for k, v in constant('App\\Service\\MessageService::PART_2') %}
+                    <option value="{{ k }}"{% if message is not null and message.part2 == k %} selected{% endif %}>{{ v }}</option>
+                {% endfor %}
+            </select>
+
+            <select name="p3">
+                <option value="">Please select...</option>
+                {% for k, v in constant('App\\Service\\MessageService::PART_3') %}
+                    <option value="{{ k }}"{% if message is not null and message.part3 == k %} selected{% endif %}>{{ v }}</option>
+                {% endfor %}
+            </select>
+        </fieldset>
+
+        <button type="submit">Choose</button>
+    </form>
+{% endblock body %}

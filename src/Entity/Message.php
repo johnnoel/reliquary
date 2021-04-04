@@ -6,20 +6,19 @@ namespace App\Entity;
 
 class Message
 {
-    // phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
     public function __construct(
         private string $twitterId,
         private string $twitterHandle,
+        private string $message,
         private string $part1,
         private string $part2,
         private string $part3
     ) {
-        // phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact
     }
 
     public function __toString(): string
     {
-        return implode(' ', [ $this->part1, $this->part2, $this->part3 ]);
+        return $this->message;
     }
 
     public function getTwitterId(): string
@@ -30,6 +29,11 @@ class Message
     public function getTwitterHandle(): string
     {
         return $this->twitterHandle;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
     }
 
     public function getPart1(): string
