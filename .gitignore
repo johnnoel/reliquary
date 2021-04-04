@@ -1,4 +1,11 @@
 
+/.idea
+/node_modules
+/public/build/*
+!/public/build/manifest.json
+/public/index.html
+/var
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -14,12 +21,6 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-
-/.idea
-/node_modules
-/public/build
-/public/index.html
-/var
 
 ###> squizlabs/php_codesniffer ###
 /.phpcs-cache

@@ -59,7 +59,7 @@ module.exports = {
             chunkFilename: '[id].[contenthash].css',
             ignoreOrder: false,
         }),
-        //new WebpackManifestPlugin(),
+        new WebpackManifestPlugin(),
         new HtmlWebpackPlugin({
             filename: '../index.html',
             template: path.resolve(__dirname, 'index.html'),

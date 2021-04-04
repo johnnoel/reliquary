@@ -4,8 +4,8 @@
     "description": "Nier Automata Reliquary system",
     "main": "index.js",
     "scripts": {
-        "frontend-dev": "cross-env NODE_ENV=development webpack --config frontend/webpack.config.js --watch",
-        "frontend-prod": "cross-env NODE_ENV=production webpack --config frontend/webpack.prod.js",
+        "frontend:dev": "cross-env NODE_ENV=development webpack --config frontend/webpack.config.js --watch",
+        "frontend:prod": "cross-env NODE_ENV=production webpack --config frontend/webpack.prod.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "John Noel <chaostangent@gmail.com>",
