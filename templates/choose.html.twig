@@ -30,4 +30,8 @@
 
         <button type="submit">{% if message is not null %}Change{% else %}Choose{% endif %}</button>
     </form>
+
+    <script>
+        window.__LOGGED_IN_USER__ = { id: '{{ app.user.id }}', name: '{{ app.user.username|replace({ "'": "\'" }) }}' };
+    </script>
 {% endblock body %}

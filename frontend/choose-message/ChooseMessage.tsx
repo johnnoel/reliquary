@@ -2,10 +2,14 @@ import OptionSelector from './OptionSelector';
 import { useState } from 'preact/hooks';
 import classNames from 'classnames';
 import options from '../options';
+import { User } from '../types';
 
-const ChooseMessage = () => {
+const ChooseMessage = ({ user }: ChooseMessageProps) => {
     const [ active, setActive ] = useState<number|null>(null);
     const [ selected, setSelected ] = useState<string[]>([]);
+
+    // todo better / smarter replacement than this
+    options[0].username = user.name;
 
     return <div>
         <div className="choosemessage-partselector">
@@ -22,11 +26,11 @@ const ChooseMessage = () => {
             setSelected(newSelected);
         }} /> : null}
 
-        <button type="button" className="btn" onClick={() => onConfirm(selected)}>Confirm</button>
+        <button type="button" className="btn" onClick={() => onConfirm(selected, user)}>Confirm</button>
     </div>
 }
 
-const onConfirm = (selected: string[]): void => {
+const onConfirm = (selected: string[], user: User): void => {
     const fd = new FormData();
     fd.append('p1', selected[0]);
     fd.append('p2', selected[1]);
@@ -46,9 +50,7 @@ const onConfirm = (selected: string[]): void => {
             throw 'Unknown error';
         }
 
-        // todo get twitter ID from source page or return URL from create task?
-        const twitterId = '104439298';
-        window.location.href = '/' + twitterId;
+        window.location.href = '/' + user.id;
     }).catch(reason => {
         alert(reason);
     })
@@ -67,5 +69,9 @@ const getOption = (optionSet: number, selected: string|undefined): string => {
 
     return opts[selected];
 };
+
+interface ChooseMessageProps {
+    user: User;
+}
 
 export default ChooseMessage;
