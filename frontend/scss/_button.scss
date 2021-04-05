@@ -3,10 +3,8 @@
     width: 100%;
     box-sizing: border-box;
     border: none;
-    //color: #4D4941;
-    //background: #B0AC99;
-    background: #A49E85;
-    color: #434037;
+    background: $beige3;
+    color: $brown1; // should be $brown2 as currently doesn't even pass WCAG AA
     padding: 12px 11px 12px 47px;
     position: relative;
     cursor: pointer;
@@ -22,24 +20,28 @@
         left: 11px;
         width: 24px;
         height: 24px;
-        background: #4D4941;
+        background: $brown1;
     }
 
     & + & {
         margin-top: 24px;
     }
 
-    &.active, &:hover, &:focus {
-        background: #4D4941;
-        color: #AFAE98;
+    &:hover, &:focus {
+        // WCAG AAA pass on large text (> 19px bold, > 24px normal)
+        background: $brown1;
+        color: $beige2;
 
         i {
-            background: #b2af95;
+            background: $beige2;
+        }
+
+        &:before, &:after {
+            content: '';
+            position: absolute;
         }
 
         &:before {
-            content: '';
-            position: absolute;
             left: -60px;
             top: 50%;
             transform: translateY(-50%);
@@ -49,8 +51,6 @@
         }
 
         &:after {
-            content: '';
-            position: absolute;
             left: 0;
             top: -7px;
             border-top: 2px solid #4D4941;
@@ -61,8 +61,8 @@
     }
 }
 
-.buttonlist {
-    border-left: 14px solid #8c8873;
+.btnlist {
+    border-left: 14px solid $beige3;
     padding-left: 54px;
     position: relative;
 
@@ -73,6 +73,6 @@
         top: 0;
         width: 4px;
         height: 100%;
-        background: #8c8873;
+        background: $beige3;
     }
 }

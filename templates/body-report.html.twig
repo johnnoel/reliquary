@@ -2,25 +2,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        <div class="bodyreport-container">
+    <main role="main">
+        <article class="bodyreport-container">
             <h1 class="bodyreport-title">Body Report</h1>
-            <h2 class="bodyreport-username">{{ message.twitterHandle }}</h2>
-            <hr class="bodyreport-divider" />
+            <h2 class="bodyreport-username"><a href="https://twitter.com/{{ message.twitterHandle|e('url') }}" target="_blank" rel="nofollow noopener">{{ message.twitterHandle }}</a></h2>
             <p class="bodyreport-message">{{ message }}</p>
-        </div>
-        <div>
-            <div class="bodyreport-buttonlist">
+        </article>
+
+        <nav>
+            <div class="btnlist">
                 {% if app.user is not null and app.user.id == message.twitterId %}
-                    <a href="{{ path('choose-message') }}" class="btn">Change Message</a>
-                    <a href="https://twitter.com/intent/tweet?text={{ message|e('url') }}&amp;hashtags=reliquary" target="_blank" rel="nofollow noopener" class="btn btn-twitter">Tweet Your Message</a>
+                    <a href="{{ path('choose-message') }}" class="btn"><i></i>Change Message</a>
+                    <a href="https://twitter.com/intent/tweet?text={{ message|e('url') }}&amp;hashtags=reliquary&amp;url={{ url('body-report', { 'twitterId': message.twitterId })|e('url') }}" target="_blank" rel="nofollow noopener" class="btn btn-twitter"><i></i>Tweet Message</a>
                 {% else %}
-                    <a href="{{ path('choose-message') }}" class="btn">Claim Your Own Message</a>
+                    <a href="{{ path('choose-message') }}" class="btn"><i></i>Claim Your Own Message</a>
                 {% endif %}
-                <a href="{{ path('random') }}" class="btn">See Another Random Message</a>
+                <a href="{{ path('random') }}" class="btn"><i></i>Random Message</a>
             </div>
-        </div>
-    </div>
+        </nav>
+    </main>
 
     <noscript>You will need JavaScript to use the advanced features of this app</noscript>
 {% endblock body %}

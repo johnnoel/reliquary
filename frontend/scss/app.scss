@@ -1,9 +1,17 @@
 @import '~normalize.css/normalize.css';
-@import 'button';
-@import 'bodyreport';
-@import 'choosemessage';
 
 $red: #9C5448;
+$brown1: #4D4941; // borders, active button background
+$brown2: #1B1915; // body report page background
+$beige1: #C2BFA5; // page background
+$beige2: #D6D3B9; // modal background, brighter than beige1
+$beige3: #B0AC97; // button background
+
+@import 'home'; // homepage styles
+@import 'bodyreport'; // body report page styles
+@import 'info'; // info modal-ish box
+@import 'button'; // button and button list styles
+@import 'choosemessage';
 
 html {
     height: 100%;
@@ -18,61 +26,6 @@ body {
 
     &.wf-active {
         font-weight: 600;
-    }
-
-    &.home {
-        padding: 35px 0 65px 0;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        background: #c2bfa5 url(../img/grid.png) repeat 0 0;
-
-        main {
-            flex-grow: 1;
-            padding: 55px 65px 25px 60px;
-            border-top: 2px solid #4D4941;
-            border-bottom: 2px solid #4D4941;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-
-            &:before, &:after {
-                content: '';
-                position: absolute;
-                left: 60px;
-                height: 35px;
-                width: calc(100% - 120px);
-                background: url(../img/divider.png) repeat-x -60px 0;
-            }
-
-            &:before {
-                top: 0;
-            }
-
-            &:after {
-                bottom: -35px;
-            }
-
-            h1 {
-                order: 1;
-                flex-grow: 1;
-            }
-
-            nav {
-                order: 2;
-                flex-grow: 1;
-                width: 50%;
-            }
-
-            .info {
-                order: 3;
-            }
-        }
-    }
-
-    &.bodyreport {
-        background: #1B1915;
-        color: #D6D3B9;
     }
 
     &.choosemessage {
@@ -91,6 +44,7 @@ a {
     border-top: 2px solid #4D4941;
 }
 
+// text shadow title
 .shadowtitle {
     text-transform: uppercase;
     line-height: 1;
@@ -98,39 +52,4 @@ a {
     color: #434137;
     text-shadow: 8px 8px 0 #8f8d78;
     margin: 0;
-}
-
-.info {
-    box-sizing: border-box;
-    padding: 25px 0 25px 45px;
-    position: relative;
-    background: #D6D3B9;
-    box-shadow: 3px 3px 0 0 #A9A48B;
-    border-left: 13px solid #4D4941;
-    line-height: 1;
-    font-size: 24px;
-
-    &:before {
-        content: '';
-        position: absolute;
-        left: 7px;
-        top: 0;
-        width: 4px;
-        height: 100%;
-        background: #4D4941;
-    }
-
-    &:after {
-        content: '';
-        position: absolute;
-        right: 12px;
-        bottom: 8px;
-        width: 16px;
-        height: 16px;
-        background: #4D4941;
-    }
-
-    p {
-        margin: 0 0 1em;
-    }
 }
