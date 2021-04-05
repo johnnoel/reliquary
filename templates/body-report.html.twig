@@ -12,7 +12,8 @@
         <div>
             <div class="bodyreport-buttonlist">
                 {% if app.user is not null and app.user.id == message.twitterId %}
-                    <a href="{{ path('choose-message') }}" class="btn active">Change Message</a>
+                    <a href="{{ path('choose-message') }}" class="btn">Change Message</a>
+                    <a href="https://twitter.com/intent/tweet?text={{ message|e('url') }}&amp;hashtags=reliquary" target="_blank" rel="nofollow noopener" class="btn btn-twitter">Tweet Your Message</a>
                 {% else %}
                     <a href="{{ path('choose-message') }}" class="btn">Claim Your Own Message</a>
                 {% endif %}
