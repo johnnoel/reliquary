@@ -1,4 +1,3 @@
-8. Button on choose message to confirm and submit message
 7. Replace [Username] with currently logged in name
 6. Disable options that aren't available if you've selected two other options
 5. Show whether a message is assignable
@@ -9,3 +8,4 @@
 3. Choose message styling
 10. Boring "not affiliated with NieR Automata page / disclaimer
 11. Need a short link
+12. Need an indicator to show the message is being stored / loading

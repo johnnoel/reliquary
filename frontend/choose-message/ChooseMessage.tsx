@@ -21,8 +21,38 @@ const ChooseMessage = () => {
             newSelected[active] = sel;
             setSelected(newSelected);
         }} /> : null}
+
+        <button type="button" className="btn" onClick={() => onConfirm(selected)}>Confirm</button>
     </div>
 }
+
+const onConfirm = (selected: string[]): void => {
+    const fd = new FormData();
+    fd.append('p1', selected[0]);
+    fd.append('p2', selected[1]);
+    fd.append('p3', selected[2]);
+
+    // todo show loading indicator
+    fetch('/choose-message.json', {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: fd,
+    }).then(resp => {
+        if (resp.status === 409) {
+            // cannot create as already claimed
+            throw 'Already claimed';
+        } else if (resp.status !== 201) {
+            // not created, not sure what's wrong
+            throw 'Unknown error';
+        }
+
+        // todo get twitter ID from source page or return URL from create task?
+        const twitterId = '104439298';
+        window.location.href = '/' + twitterId;
+    }).catch(reason => {
+        alert(reason);
+    })
+};
 
 const getOption = (optionSet: number, selected: string|undefined): string => {
     if (selected === undefined) {
@@ -36,6 +66,6 @@ const getOption = (optionSet: number, selected: string|undefined): string => {
     }
 
     return opts[selected];
-}
+};
 
 export default ChooseMessage;
