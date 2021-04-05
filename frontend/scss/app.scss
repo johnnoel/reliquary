@@ -2,10 +2,11 @@
 
 $red: #9C5448;
 $brown1: #4D4941; // borders, active button background
-$brown2: #1B1915; // body report page background
+$brown2: #1B1915; // text colour, body report page background
 $beige1: #C2BFA5; // page background
 $beige2: #D6D3B9; // modal background, brighter than beige1
-$beige3: #B0AC97; // button background
+$beige3: #B0AC97; // body report button background
+$beige4: #A9A48B; // button background
 
 @import 'home'; // homepage styles
 @import 'bodyreport'; // body report page styles
@@ -20,17 +21,16 @@ html {
 body {
     font-family: fot-rodin-pron, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-style: normal;
-    background: #c2bfa5;
-    color: #1B1915;
+    background: $beige1 url(../img/grid.png) repeat 0 0;
+    color: $brown2;
     min-height: 100%;
+    padding: 35px 0 65px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 
     &.wf-active {
         font-weight: 600;
-    }
-
-    &.choosemessage {
-        padding-top: 42px;
-        background: #c2bfa5 url(../img/grid.png) repeat 0 0;
     }
 }
 
@@ -39,9 +39,37 @@ a {
     text-decoration: underline;
 }
 
-.divider {
-    height: 28px;
-    border-top: 2px solid #4D4941;
+#app {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.container {
+    border-top: 2px solid $brown1;
+    border-bottom: 2px solid $brown1;
+    padding: 55px 65px 25px 60px;
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        left: 60px;
+        height: 35px;
+        width: calc(100% - 120px);
+        background: url(../img/divider.png) repeat-x -60px 0;
+    }
+
+    &:before {
+        top: 0;
+    }
+
+    &:after {
+        bottom: -35px;
+    }
 }
 
 // text shadow title

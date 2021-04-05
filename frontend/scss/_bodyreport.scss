@@ -43,8 +43,17 @@
         font-size: 22px;
     }
 
+    .btn {
+        background: $beige3;
+    }
+
     .btnlist {
-        width: 30vw;
+        width: 32%;
         margin: 0 auto;
+        border-left-color: $beige3;
+
+        &:before {
+            background: $beige3;
+        }
     }
 }

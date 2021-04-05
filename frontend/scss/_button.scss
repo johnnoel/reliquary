@@ -3,7 +3,7 @@
     width: 100%;
     box-sizing: border-box;
     border: none;
-    background: $beige3;
+    background: $beige4;
     color: $brown1; // should be $brown2 as currently doesn't even pass WCAG AA
     padding: 12px 11px 12px 47px;
     position: relative;
@@ -53,8 +53,8 @@
         &:after {
             left: 0;
             top: -7px;
-            border-top: 2px solid #4D4941;
-            border-bottom: 2px solid #4D4941;
+            border-top: 2px solid $brown1;
+            border-bottom: 2px solid $brown1;
             width: 100%;
             height: calc(100% + 10px);
         }
@@ -62,7 +62,7 @@
 }
 
 .btnlist {
-    border-left: 14px solid $beige3;
+    border-left: 14px solid $beige4;
     padding-left: 54px;
     position: relative;
 
@@ -73,6 +73,6 @@
         top: 0;
         width: 4px;
         height: 100%;
-        background: $beige3;
+        background: $beige4;
     }
 }

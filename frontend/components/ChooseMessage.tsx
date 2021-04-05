@@ -13,42 +13,45 @@ const ChooseMessage = ({ user }: ChooseMessageProps) => {
     // todo better / smarter replacement than this
     options[0].username = user.name;
 
-    return <div>
-        <div className="choosemessage-partselector">
-            &quot;
-            <button type="button" className={classNames('choosemessage-btn', { 'active': active === 0 })} onClick={() => setActive(0)}>[{getOption(0, selected[0])}]</button>
-            <button type="button" className={classNames('choosemessage-btn', { 'active': active === 1 })} onClick={() => setActive(1)}>[{getOption(1, selected[1])}]</button>
-            <button type="button" className={classNames('choosemessage-btn', { 'active': active === 2 })} onClick={() => setActive(2)}>[{getOption(2, selected[2])}]</button>
-            .&quot;
-        </div>
+    return <>
+        <div className="choosemessage-container">
+            <div className="choosemessage-partselector">
+                &quot;
+                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 0 })} onClick={() => setActive(0)}>[{getOption(0, selected[0])}]</button>
+                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 1 })} onClick={() => setActive(1)}>[{getOption(1, selected[1])}]</button>
+                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 2 })} onClick={() => setActive(2)}>[{getOption(2, selected[2])}]</button>
+                .&quot;
+            </div>
 
-        {(active !== null) ? <OptionSelector options={options[active]} selected={selected[active]} onSelect={(sel) => {
-            const newSelected = selected.slice(0);
-            newSelected[active] = sel;
-            setSelected(newSelected);
+            {(active !== null) ? <OptionSelector options={options[active]} selected={selected[active]} onSelect={(sel) => {
+                const newSelected = selected.slice(0);
+                newSelected[active] = sel;
+                setSelected(newSelected);
 
-            if (newSelected.filter(s => s !== undefined).length < 3) {
-                return;
-            }
-
-            fetch('/is-message-available?p1=' + newSelected[0] + '&p2=' + newSelected[1] + '&p3=' + newSelected[2], {
-                method: 'GET',
-                credentials: 'same-origin',
-            }).then(resp => {
-                if (resp.status === 404) {
-                    setInfo('Message available.');
-                } else {
-                    setInfo('Message not available.');
+                if (newSelected.filter(s => s !== undefined).length < 3) {
+                    return;
                 }
-            });
-        }} /> : null}
 
-        <div className="buttonlist">
-            <button type="button" className="btn" onClick={() => onConfirm(selected, user)}>Confirm</button>
+                fetch('/is-message-available?p1=' + newSelected[0] + '&p2=' + newSelected[1] + '&p3=' + newSelected[2], {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                }).then(resp => {
+                    if (resp.status === 404) {
+                        setInfo('Message available.');
+                    } else {
+                        setInfo('Message not available.');
+                    }
+                });
+            }} /> : null}
+
+            <div className="btnlist">
+                <button type="button" className="btn" onClick={() => onConfirm(selected, user)}><i/>Confirm</button>
+                <a href="/logout" className="btn"><i/>Logout</a>
+            </div>
         </div>
 
         <Information text={info} />
-    </div>
+    </>
 }
 
 const onConfirm = (selected: string[], user: User): void => {

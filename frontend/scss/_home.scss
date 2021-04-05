@@ -1,49 +1,16 @@
 .home {
-    padding: 35px 0 65px 0;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    background: $beige1 url(../img/grid.png) repeat 0 0;
-
-    main {
+    h1 {
+        order: 1;
         flex-grow: 1;
-        padding: 55px 65px 25px 60px;
-        border-top: 2px solid $brown1;
-        border-bottom: 2px solid $brown1;
-        position: relative;
-        display: flex;
-        flex-direction: column;
+    }
 
-        &:before, &:after {
-            content: '';
-            position: absolute;
-            left: 60px;
-            height: 35px;
-            width: calc(100% - 120px);
-            background: url(../img/divider.png) repeat-x -60px 0;
-        }
+    nav {
+        order: 2;
+        flex-grow: 1;
+        width: 50%;
+    }
 
-        &:before {
-            top: 0;
-        }
-
-        &:after {
-            bottom: -35px;
-        }
-
-        h1 {
-            order: 1;
-            flex-grow: 1;
-        }
-
-        nav {
-            order: 2;
-            flex-grow: 1;
-            width: 50%;
-        }
-
-        .info {
-            order: 3;
-        }
+    .info {
+        order: 3;
     }
 }
