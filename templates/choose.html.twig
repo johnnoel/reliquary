@@ -2,25 +2,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="choosemessage-divider"></div>
+
     <div id="app"></div>
+
     <form class="nojs-choosemessage" method="post" action="{{ path('choose-message') }}">
         <fieldset>
             <legend>{% if message is not null %}Change your message{% else %}Choose a message{% endif %}</legend>
-            <select name="p1" required>
+            <label for="choosemessage-p1">Message part 1</label>
+            <select name="p1" id="choosemessage-p1" required>
                 <option value="">Please select...</option>
                 {% for k, v in constant('App\\Service\\MessageService::PART_1') %}
                     <option value="{{ k }}"{% if message is not null and message.part1 == k %} selected{% endif %}>{{ v|replace({ '[Username]': app.user.username }) }}</option>
                 {% endfor %}
             </select>
 
-            <select name="p2" required>
+            <label for="choosemessage-p2">Message part 2</label>
+            <select name="p2" id="choosemessage-p2" required>
                 <option value="">Please select...</option>
                 {% for k, v in constant('App\\Service\\MessageService::PART_2') %}
                     <option value="{{ k }}"{% if message is not null and message.part2 == k %} selected{% endif %}>{{ v }}</option>
                 {% endfor %}
             </select>
 
-            <select name="p3">
+            <label for="choosemessage-p3">Message part 3</label>
+            <select name="p3" id="choosemessage-p3" required>
                 <option value="">Please select...</option>
                 {% for k, v in constant('App\\Service\\MessageService::PART_3') %}
                     <option value="{{ k }}"{% if message is not null and message.part3 == k %} selected{% endif %}>{{ v }}</option>
@@ -30,6 +36,8 @@
 
         <button type="submit">{% if message is not null %}Change{% else %}Choose{% endif %}</button>
     </form>
+
+    <div class="choosemessage-divider"></div>
 
     <script>
         window.__LOGGED_IN_USER__ = { id: '{{ app.user.id }}', name: '{{ app.user.username|replace({ "'": "\'" }) }}' };

@@ -5,9 +5,11 @@ import { OptionSet } from '../options';
 const OptionSelector = ({ options, selected, onSelect }: OptionSelectorProps) => (
     <div className="optionselector-container">
         <div className="optionselector-modal">
-            {toPairs(options).map(([ key, option ]) => (
-                <div key={key} className={classNames('optionselector-option', { 'active': selected === key })} onClick={() => onSelect(key)}>{option}</div>
-            ))}
+            <div className="optionselector-modal-content">
+                {toPairs(options).map(([ key, option ]) => (
+                    <div key={key} className={classNames('optionselector-option', { 'active': selected === key })} onClick={() => onSelect(key)}>{option}</div>
+                ))}
+            </div>
         </div>
     </div>
 );

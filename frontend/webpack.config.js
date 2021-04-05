@@ -40,6 +40,12 @@ module.exports = {
                 enforce: 'pre',
                 loader: 'source-map-loader',
             },
+            {
+                test: /\.svg$/,
+                use: [
+                    'file-loader',
+                ],
+            },
         ],
     },
     resolve: {

@@ -47,3 +47,21 @@
         }
     }
 }
+
+.buttonlist {
+    border-left: 14px solid #B0AC97;
+    padding-left: 54px;
+    position: relative;
+    width: 30vw;
+    margin: 0 auto 40px;
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: #B0AC97;
+    }
+}

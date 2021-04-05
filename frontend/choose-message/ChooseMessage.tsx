@@ -26,7 +26,9 @@ const ChooseMessage = ({ user }: ChooseMessageProps) => {
             setSelected(newSelected);
         }} /> : null}
 
-        <button type="button" className="btn" onClick={() => onConfirm(selected, user)}>Confirm</button>
+        <div className="buttonlist">
+            <button type="button" className="btn" onClick={() => onConfirm(selected, user)}>Confirm</button>
+        </div>
     </div>
 }
 

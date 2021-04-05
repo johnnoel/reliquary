@@ -1,4 +1,11 @@
 .choosemessage {
+    &-divider {
+        height: 28px;
+        border-top: 2px solid #4D4941;
+        background: url('../public/img/pattern-top.svg') repeat-x 0 0;
+        margin-bottom: 35px;
+    }
+
     &-partselector {
         width: 93.75vh;
         margin: 0 auto 45px;
@@ -37,7 +44,7 @@
     &-container {
         width: 43vh;
         height: 517px;
-        margin: 0 auto;
+        margin: 0 auto 40px;
         border-left: 13px solid #A9A48B;
         position: relative;
         padding-left: 52px;
@@ -59,17 +66,66 @@
         position: absolute;
         left: 52px;
         top: 0;
+        width: 100%;
         height: 100%;
-        overflow-y: scroll;
-        scrollbar-color: #4D4941 #D6D3B9;
+        box-shadow: 5px 5px 0 0 #A9A48B;
+        padding: 15px 20px 15px 0;
+        box-sizing: border-box;
+
+        &:before, &:after {
+            content: '';
+            width: 94%;
+            height: 2px;
+            background: #A9A48B;
+            position: absolute;
+            left: 15px;
+        }
+
+        &:before {
+            top: 8px;
+        }
+
+        &:after {
+            bottom: 8px;
+        }
+
+        &-content {
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-color: #4D4941 #D6D3B9;
+            padding-right: 15px;
+            box-sizing: border-box;
+        }
     }
 
     &-option {
-        font-size: 22px;
-        padding: 12px 0 12px 20px;
+        font-size: 24px;
+        line-height: 1;
+        padding: 20px 0 20px 20px;
+        cursor: pointer;
+        position: relative;
 
-        & + & {
-            margin-top: 35px;
+        &.active {
+            background: #4D4941;
+            color: #D6D3B9;
+
+            &:before, &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                height: 5px;
+                width: 100%;
+                background: #D6D3B9;
+            }
+
+            &:before {
+                top: 2px;
+            }
+
+            &:after {
+                bottom: 2px;
+            }
         }
     }
 }
