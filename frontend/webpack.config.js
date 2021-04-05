@@ -2,7 +2,6 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -41,7 +40,7 @@ module.exports = {
                 loader: 'source-map-loader',
             },
             {
-                test: /\.(svg|png)$/,
+                test: /\.png$/,
                 use: [
                     'file-loader',
                 ],
@@ -69,9 +68,5 @@ module.exports = {
             ignoreOrder: false,
         }),
         new WebpackManifestPlugin(),
-        new HtmlWebpackPlugin({
-            filename: '../index.html',
-            template: path.resolve(__dirname, 'index.html'),
-        }),
     ],
 };

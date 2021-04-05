@@ -1,7 +1,7 @@
 import { render } from 'preact';
 import { User } from './types';
-import ChooseMessage from './choose-message/ChooseMessage';
-import './app.scss';
+import ChooseMessage from './components/ChooseMessage';
+import './scss/app.scss';
 
 declare global {
     interface Window {
