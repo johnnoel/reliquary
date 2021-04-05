@@ -9,6 +9,7 @@ use App\Service\MessageService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MessageConverter implements ParamConverterInterface
 {
@@ -22,7 +23,7 @@ class MessageConverter implements ParamConverterInterface
         $message = $this->messageService->getMessageByTwitterId($twitterId);
 
         if ($message === null) {
-            return false;
+            throw new NotFoundHttpException('Could not find message for Twitter ID ' . $twitterId);
         }
 
         $request->attributes->set($configuration->getName(), $message);

@@ -19,8 +19,7 @@ security:
                 login_path: /login
                 use_forward: false
                 failure_path: /login
-                default_target_path: /choose-message
-                always_use_default_target_path: true
+                success_handler: App\Security\AuthenticationSuccessHandler
                 oauth_user_provider:
                     service: App\Security\UserProvider
 
