@@ -1,6 +1,7 @@
-6. Disable options that aren't available if you've selected two other options
+Now
 5. Show whether a message is assignable
 
+Before launch
 1. Homepage layout
 2. Body report mobile tweaks
 3. Choose message styling
@@ -8,3 +9,6 @@
 11. Need a short link
 12. Need an indicator to show the message is being stored / loading
 13. If you already have selected a message, pre-select that
+
+Later
+6. Disable options that aren't available if you've selected two other options

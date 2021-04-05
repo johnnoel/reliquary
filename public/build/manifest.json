@@ -1,8 +1,10 @@
 {
-  "main.css": "/build/main.40a36a49af0bdb1ee924.css",
-  "main.js": "/build/main.2858befa07657086d314.js",
+  "main.css": "/build/main.9990c8572919e8b660eb.css",
+  "main.js": "/build/main.f6917d0ff30c60e4bdfa.js",
   "main.svg": "/build/1078fae8b7453f8377b5dd8541e5dc6e.svg",
+  "main.png": "/build/3bed44c43c3462e9e273585f23aa6f0c.png",
   "head.js": "/build/head.e14f0a44d4ba4ce1ae43.js",
   "../index.html": "/build/../index.html",
-  "pattern-top.svg": "/build/1078fae8b7453f8377b5dd8541e5dc6e.svg"
+  "pattern-top.svg": "/build/1078fae8b7453f8377b5dd8541e5dc6e.svg",
+  "grid.png": "/build/3bed44c43c3462e9e273585f23aa6f0c.png"
 }

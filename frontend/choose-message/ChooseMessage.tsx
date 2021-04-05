@@ -3,10 +3,12 @@ import { useState } from 'preact/hooks';
 import classNames from 'classnames';
 import options from '../options';
 import { User } from '../types';
+import Information from './Information';
 
 const ChooseMessage = ({ user }: ChooseMessageProps) => {
     const [ active, setActive ] = useState<number|null>(null);
     const [ selected, setSelected ] = useState<string[]>([]);
+    const [ info, setInfo ] = useState<string>('Choose a phrase to input.');
 
     // todo better / smarter replacement than this
     options[0].username = user.name;
@@ -24,11 +26,28 @@ const ChooseMessage = ({ user }: ChooseMessageProps) => {
             const newSelected = selected.slice(0);
             newSelected[active] = sel;
             setSelected(newSelected);
+
+            if (newSelected.filter(s => s !== undefined).length < 3) {
+                return;
+            }
+
+            fetch('/is-message-available?p1=' + newSelected[0] + '&p2=' + newSelected[1] + '&p3=' + newSelected[2], {
+                method: 'GET',
+                credentials: 'same-origin',
+            }).then(resp => {
+                if (resp.status === 404) {
+                    setInfo('Message available.');
+                } else {
+                    setInfo('Message not available.');
+                }
+            });
         }} /> : null}
 
         <div className="buttonlist">
             <button type="button" className="btn" onClick={() => onConfirm(selected, user)}>Confirm</button>
         </div>
+
+        <Information text={info} />
     </div>
 }
 
