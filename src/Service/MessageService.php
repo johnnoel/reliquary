@@ -6,6 +6,11 @@ namespace App\Service;
 
 use App\Entity\Message;
 
+/**
+ * "messages": hash, stores the full message parts and twitter name against a twitter ID
+ * "seenTwitterIds": set, stores all the twitter IDs that have been assigned a message, used for random functionality
+ * "takenMessages": set, stores a message key to indicate whether a given message has been assigned already
+ */
 class MessageService
 {
     public const PART_1 = [
@@ -319,6 +324,8 @@ class MessageService
         if ($json === false) {
             throw new \RuntimeException('Unable to JSON encode message');
         }
+
+        $existing = $this->redis->hGet('messages', $twitterId);
 
         $this->redis->hSet('messages', $twitterId, $json);
         $this->redis->sAdd('seenTwitterIds', $twitterId);
