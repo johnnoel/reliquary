@@ -1,15 +1,24 @@
+{% set body_class = 'home' %}
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>NieR Automata Reliquary System</h1>
-    <p>An online version of <a href="https://nierautomata.wiki.fextralife.com/Reliquary+System" target="_blank" rel="nofollow noopener">the "reliquary" message system from NieR Automata</a>; limited to only one unique message per person.</p>
+    <main role="main">
+        <h1 class="shadowtitle">NieR Automata Reliquary System</h1>
 
-    <ul>
-        {% if app.user is not null %}
-            <li><a href="{{ path('choose-message') }}">Choose your message</a></li>
-        {% else %}
-            <li><a href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}">Login with Twitter and choose your message</a></li>
-        {% endif %}
-        <li><a href="{{ path('random') }}">See a random message</a></li>
-    </ul>
+        <div class="info">
+            <p>An online version of <a href="https://nierautomata.wiki.fextralife.com/Reliquary+System" target="_blank" rel="nofollow noopener">the "reliquary" message system from NieR Automata</a>; limited to only one unique message per person.</p>
+            <small>Please note, this website is not affiliated or endorsed by SquareEnix or Platinum Games</small>
+        </div>
+
+        <nav>
+            <div class="buttonlist">
+                {% if app.user is not null %}
+                    <a class="btn" href="{{ path('choose-message') }}"><i></i>Choose your message</a>
+                {% else %}
+                    <a class="btn" href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}"><i></i>Login with Twitter and choose your message</a>
+                {% endif %}
+                <a class="btn" href="{{ path('random') }}"><i></i>See a random message</a>
+            </div>
+        </nav>
+    </main>
 {% endblock %}

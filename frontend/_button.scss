@@ -1,9 +1,12 @@
 .btn {
     display: block;
     width: 100%;
+    box-sizing: border-box;
     border: none;
-    color: #4D4941;
-    background: #B0AC99;
+    //color: #4D4941;
+    //background: #B0AC99;
+    background: #A49E85;
+    color: #434037;
     padding: 12px 11px 12px 47px;
     position: relative;
     cursor: pointer;
@@ -11,9 +14,9 @@
     font-size: 24px;
     line-height: 1;
     text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
 
-    &:before {
-        content: '';
+    i {
         position: absolute;
         top: 12px;
         left: 11px;
@@ -26,17 +29,27 @@
         margin-top: 24px;
     }
 
-    &.active {
+    &.active, &:hover, &:focus {
         background: #4D4941;
-        color: #B0AC97;
+        color: #AFAE98;
+
+        i {
+            background: #b2af95;
+        }
 
         &:before {
-            background: #B0AC97;
+            content: '';
+            position: absolute;
+            left: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 30px;
+            background: url(select.png) no-repeat 0 0;
         }
 
         &:after {
             content: '';
-            display: block;
             position: absolute;
             left: 0;
             top: -7px;
@@ -49,11 +62,9 @@
 }
 
 .buttonlist {
-    border-left: 14px solid #B0AC97;
+    border-left: 14px solid #8c8873;
     padding-left: 54px;
     position: relative;
-    width: 30vw;
-    margin: 0 auto 40px;
 
     &:before {
         content: '';
@@ -62,6 +73,6 @@
         top: 0;
         width: 4px;
         height: 100%;
-        background: #B0AC97;
+        background: #8c8873;
     }
 }

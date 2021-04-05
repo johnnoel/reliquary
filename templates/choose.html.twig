@@ -2,7 +2,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="choosemessage-divider"></div>
+    <div class="divider"></div>
 
     <div id="app"></div>
 
@@ -37,7 +37,7 @@
         <button type="submit">{% if message is not null %}Change{% else %}Choose{% endif %}</button>
     </form>
 
-    <div class="choosemessage-divider"></div>
+    <div class="divider"></div>
 
     <script>
         window.__LOGGED_IN_USER__ = { id: '{{ app.user.id }}', name: '{{ app.user.username|replace({ "'": "\'" }) }}' };
