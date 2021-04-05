@@ -330,6 +330,31 @@ class MessageService
         return $this->redis->sRandMember('seenTwitterIds');
     }
 
+    /**
+     * @return \Generator<string, string>
+     */
+    public function getAllAssignedMessages(): \Generator
+    {
+        // https://github.com/phpredis/phpredis#hscan
+        $this->redis->setOption(\Redis::OPT_SCAN, \Redis::SCAN_RETRY);
+        $cursor = null;
+
+        do {
+            $items = $this->redis->hScan('messages', $cursor);
+
+            if (!is_array($items)) {
+                break;
+            }
+
+            yield from $items;
+        } while ($cursor !== 0);
+    }
+
+    public function clear(): void
+    {
+        $this->redis->del('messages', 'seenTwitterIds', 'takenMessages');
+    }
+
     private function isValidMessage(string $part1, string $part2, string $part3): bool
     {
         return
