@@ -325,16 +325,43 @@ class MessageService
             throw new \RuntimeException('Unable to JSON encode message');
         }
 
-        $existing = $this->redis->hGet('messages', $twitterId);
-
         $this->redis->hSet('messages', $twitterId, $json);
         $this->redis->sAdd('seenTwitterIds', $twitterId);
         $this->redis->sAdd('takenMessages', $this->getMessageKey($part1, $part2, $part3));
     }
 
-    public function getRandomTwitterId(): string
+    public function removeMessage(string $twitterId): void
     {
-        return $this->redis->sRandMember('seenTwitterIds');
+        $messageJson = $this->redis->hGet('messages', $twitterId);
+
+        if ($messageJson === false) {
+            return;
+        }
+
+        $message = json_decode($messageJson);
+
+        if ($message === null) {
+            return;
+        }
+
+        $this->redis->hDel('messages', $twitterId);
+        $this->redis->sRem('seenTwitterIds', $twitterId);
+        $this->redis->sRem('takenMessages', $this->getMessageKey($message->p1, $message->p2, $message->p3));
+    }
+
+    public function getRandomTwitterId(): ?string
+    {
+        $twitterId = $this->redis->sRandMember('seenTwitterIds');
+
+        if ($twitterId === false) {
+            return null;
+        }
+
+        if (is_array($twitterId)) {
+            $twitterId = reset($twitterId);
+        }
+
+        return $twitterId;
     }
 
     /**
@@ -347,6 +374,8 @@ class MessageService
         $cursor = null;
 
         do {
+            // hScan claims it needs an int for the cursor but needs null initially as per the docs
+            /** @phpstan-ignore-next-line */
             $items = $this->redis->hScan('messages', $cursor);
 
             if (!is_array($items)) {
@@ -362,7 +391,7 @@ class MessageService
         $this->redis->del('messages', 'seenTwitterIds', 'takenMessages');
     }
 
-    private function isValidMessage(string $part1, string $part2, string $part3): bool
+    public function isValidMessage(string $part1, string $part2, string $part3): bool
     {
         return
             array_key_exists($part1, self::PART_1) &&

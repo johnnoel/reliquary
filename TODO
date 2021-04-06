@@ -1,9 +1,9 @@
 Before launch
-5. Tests
-6. Flag redis to be persistent on my server
+1. Flag redis to be persistent on my server
 
 Later
-5. Could do with a short link
-6. Might need an indicator to show the message is being stored / loading
-7. Disable options that aren't available if you've selected two other options
-8. Random option when choosing message parts
+2. Could do with a short(er) link
+3. Might need an indicator to show the message is being stored / loading
+4. Disable options that aren't available if you've selected two other options
+5. Random option when choosing message parts
+6. Update a user's twitter name when they log in if they have an existing message

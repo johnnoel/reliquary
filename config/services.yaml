@@ -33,6 +33,8 @@ services:
             - connect:
                   - '%env(REDIS_HOST)%'
                   - '%env(int:REDIS_PORT)%'
+            - select:
+                  - '%env(int:REDIS_DB)%'
 
     Symfony\Component\HttpFoundation\Session\Storage\Handler\RedisSessionHandler:
         arguments:

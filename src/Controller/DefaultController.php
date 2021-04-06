@@ -51,9 +51,15 @@ class DefaultController extends AbstractController
         }
 
         if ($request->isMethod('POST')) {
-            $part1 = $request->request->get('p1');
-            $part2 = $request->request->get('p2');
-            $part3 = $request->request->get('p3');
+            $part1 = $request->request->get('p1', '');
+            $part2 = $request->request->get('p2', '');
+            $part3 = $request->request->get('p3', '');
+
+            if (!$this->messageService->isValidMessage($part1, $part2, $part3)) {
+                throw new BadRequestHttpException(
+                    'Invalid parameters provided: ' . implode(', ', [ $part1, $part2, $part3 ])
+                );
+            }
 
             if (!$this->messageService->isMessageAvailable($part1, $part2, $part3)) {
                 throw new ConflictHttpException(
@@ -80,11 +86,11 @@ class DefaultController extends AbstractController
     #[Route('/is-message-available', name: 'is-message-available', methods: [ 'GET' ])]
     public function isMessageAvailable(Request $request): Response
     {
-        $part1 = $request->query->get('p1');
-        $part2 = $request->query->get('p2');
-        $part3 = $request->query->get('p3');
+        $part1 = $request->query->get('p1', '');
+        $part2 = $request->query->get('p2', '');
+        $part3 = $request->query->get('p3', '');
 
-        if ($part1 === null || $part2 === null || $part3 === null) {
+        if (!$this->messageService->isValidMessage($part1, $part2, $part3)) {
             throw new BadRequestHttpException();
         }
 
@@ -99,6 +105,10 @@ class DefaultController extends AbstractController
     public function random(): RedirectResponse
     {
         $twitterId = $this->messageService->getRandomTwitterId();
+
+        if ($twitterId === null) {
+            return $this->redirectToRoute('home', [], Response::HTTP_FOUND);
+        }
 
         return $this->redirectToRoute('body-report', [ 'twitterId' => $twitterId ], Response::HTTP_FOUND);
     }

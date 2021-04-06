@@ -16,9 +16,9 @@ security:
             oauth:
                 resource_owners:
                     twitter: /login/callback
-                login_path: /login
+                login_path: /
                 use_forward: false
-                failure_path: /login
+                failure_path: /
                 success_handler: App\Security\AuthenticationSuccessHandler
                 oauth_user_provider:
                     service: App\Security\UserProvider
