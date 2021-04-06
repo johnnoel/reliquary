@@ -1,4 +1,4 @@
-# Reliquary system
+# Reliquary message system
 
 [reliquary.johnnoel.uk](https://reliquary.johnnoel.uk/)
 

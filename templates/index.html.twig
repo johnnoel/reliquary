@@ -3,21 +3,21 @@
 
 {% block body %}
     <main role="main" class="container">
-        <h1 class="shadowtitle">NieR Automata Reliquary System</h1>
+        <h1 class="shadowtitle">Reliquary Message System</h1>
 
         <div class="info">
-            <p>An online version of <a href="https://nierautomata.wiki.fextralife.com/Reliquary+System" target="_blank" rel="nofollow noopener">the "reliquary" message system from NieR Automata</a>; limited to only one unique message per person.</p>
+            <p>Inspired by <a href="https://nierautomata.wiki.fextralife.com/Reliquary+System" target="_blank" rel="nofollow noopener">the "reliquary" message system from NieR Automata</a>; limited to only one unique message per person / Twitter account.</p>
             <small>Please note, this website is not affiliated or endorsed by SquareEnix or Platinum Games</small>
         </div>
 
         <nav>
             <div class="btnlist">
                 {% if app.user is not null %}
-                    <a class="btn" href="{{ path('choose-message') }}"><i></i>Choose your message</a>
+                    <a class="btn" href="{{ path('choose-message') }}"><i></i>Choose Your Message</a>
                 {% else %}
-                    <a class="btn" href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}"><i></i>Login with Twitter and choose your message</a>
+                    <a class="btn" href="{{ path('hwi_oauth_service_redirect', { 'service': 'twitter' }) }}"><i></i>Login With Twitter And Choose Your Message</a>
                 {% endif %}
-                <a class="btn" href="{{ path('random') }}"><i></i>See a random message</a>
+                <a class="btn" href="{{ path('random') }}"><i></i>Random Message</a>
             </div>
         </nav>
     </main>
