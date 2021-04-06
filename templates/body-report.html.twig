@@ -3,6 +3,13 @@
 
 {% block title %}Body Report for {{ message.twitterHandle }}{% endblock %}
 
+{% block opengraph %}
+    <meta property="og:url" content="{{ url('body-report', { 'twitterId': message.twitterId }) }}">
+    <meta property="og:title" content="{{ message.twitterHandle }} Body Report : Reliquary Message System">
+    <meta property="og:description" content="{{ message }}">
+    <meta property="og:image" content="{{ absolute_url(asset('img/opengraph-bodyreport.png')) }}">
+{% endblock opengraph %}
+
 {% block body %}
     <main role="main">
         <article class="bodyreport-container">
