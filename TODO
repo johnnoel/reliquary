@@ -1,8 +1,10 @@
 Before launch
-1. Need a short link
-2. Need an indicator to show the message is being stored / loading
-3. If you already have selected a message, pre-select that
 4. Install NelmioSecurityBundle
+5. Tests
+6. Flag redis to be persistent on my server
 
 Later
+5. Could do with a short link
+6. Might need an indicator to show the message is being stored / loading
 7. Disable options that aren't available if you've selected two other options
+8. Random option when choosing message parts

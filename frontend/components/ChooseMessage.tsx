@@ -6,9 +6,9 @@ import { User } from '../types';
 import Api from '../api';
 import Information from './Information';
 
-const ChooseMessage = ({ user }: ChooseMessageProps) => {
+const ChooseMessage = ({ user, message }: ChooseMessageProps) => {
     const [ active, setActive ] = useState<number|null>(null);
-    const [ selected, setSelected ] = useState<string[]>([]);
+    const [ selected, setSelected ] = useState<string[]>(message);
     const [ info, setInfo ] = useState<string>('Choose a phrase to input.');
     const [ canSubmit, setCanSubmit ] = useState<boolean>(false);
 
@@ -77,6 +77,7 @@ const isFullMessage = (selected: string[]): boolean => {
 
 interface ChooseMessageProps {
     user: User;
+    message: string[];
 }
 
 export default ChooseMessage;

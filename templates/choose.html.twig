@@ -41,5 +41,10 @@
 
     <script>
         window.__LOGGED_IN_USER__ = { id: '{{ app.user.id }}', name: '{{ app.user.username|replace({ "'": "\'" }) }}' };
+        {% if message is not null %}
+        window.__EXISTING_MESSAGE__ = [ '{{ message.part1 }}', '{{ message.part2 }}', '{{ message.part3 }}' ];
+        {% else %}
+        window.__EXISTING_MESSAGE__ = [];
+        {% endif %}
     </script>
 {% endblock body %}
