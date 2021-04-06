@@ -1,5 +1,4 @@
 Before launch
-4. Install NelmioSecurityBundle
 5. Tests
 6. Flag redis to be persistent on my server
 
