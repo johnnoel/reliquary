@@ -28,6 +28,8 @@ nelmio_security:
     external_redirects:
         abort: true
         log: true
+        whitelist:
+            - twitter.com # for logging in
 
     # can't use CSP effectively due to how TypeKit / Adobe Fonts works
     csp: false
