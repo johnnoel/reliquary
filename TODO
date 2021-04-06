@@ -1,10 +1,8 @@
 Before launch
-1. Choose message styling
-2. Need a short link
-3. Need an indicator to show the message is being stored / loading
-4. If you already have selected a message, pre-select that
-5. Install NelmioSecurityBundle
-6. Disable "Confirm" button until it has validated a message is available
+1. Need a short link
+2. Need an indicator to show the message is being stored / loading
+3. If you already have selected a message, pre-select that
+4. Install NelmioSecurityBundle
 
 Later
 7. Disable options that aren't available if you've selected two other options
