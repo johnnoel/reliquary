@@ -1,0 +1,129 @@
+version: 2.1
+jobs:
+    install:
+        working_directory: /tmp/reliquary
+        docker:
+            - image: circleci/php:8.0-cli-node
+        steps:
+            - checkout
+            - run: sudo composer self-update
+            - restore_cache:
+                  keys:
+                      - composer-v1-{{ checksum "composer.lock" }}
+                      - composer-v1-
+            - restore_cache:
+                  keys:
+                      - npm-v1-{{ checksum "package-lock.json" }}
+                      - npm-v1-
+            - run: composer install --no-interaction --no-progress
+            - run: npm install
+            - save_cache:
+                  key: composer-v1-{{ checksum "composer.lock" }}
+                  paths:
+                      - vendor
+            - save_cache:
+                  key: npm-v1-{{ checksum "package-lock.json" }}
+                  paths:
+                      - node_modules
+            - persist_to_workspace:
+                  root: /tmp/
+                  paths:
+                      - reliquary
+
+    coding-standards:
+        working_directory: /tmp/reliquary
+        docker:
+            - image: circleci/php:8.0-cli
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: vendor/bin/phpcs -n -s src
+
+    static-analysis:
+        working_directory: /tmp/reliquary
+        docker:
+            - image: circleci/php:8.0-cli
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: php -d memory_limit=512M vendor/bin/phpstan analyse
+
+    test:
+        working_directory: /tmp/reliquary
+        docker:
+            - image: johnnoel/php:8.0-cli
+              environment:
+                  APP_ENV: test
+                  REDIS_HOST: localhost
+                  REDIS_PORT: 6379
+            - image: redis:latest
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: bin/phpunit --stop-on-failure --log-junit junitreport.xml
+            - store_test_results:
+                  path: /tmp/reliquary/junitreport.xml
+
+    build:
+        working_directory: /tmp
+        docker:
+            - image: circleci/php:8.0-cli-node
+              environment:
+                  NODE_ENV: production
+                  APP_ENV: prod
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - run: npm run frontend:prod --prefix /tmp/reliquary
+            - run: composer install --working-dir /tmp/reliquary --no-interaction --no-dev --no-progress --no-scripts
+            - run: composer dump-autoload --working-dir /tmp/reliquary --no-interaction --no-dev --optimize
+            - run: rm -rf /tmp/reliquary/node_modules /tmp/reliquary/var/log/* /tmp/reliquary/var/cache/*
+            - run: tar cjf reliquary.tar.bz2 -C /tmp/reliquary/ .
+            - store_artifacts:
+                  path: /tmp/reliquary.tar.bz2
+
+    deploy:
+        working_directory: /tmp/reliquary
+        docker:
+            - image: johnnoel/php:8.0-cli
+        steps:
+            - attach_workspace:
+                  at: /tmp
+            - add_ssh_keys:
+                  fingerprints:
+                      - "e9:97:08:ae:36:6a:7c:df:77:b1:ed:5a:36:af:f2:33"
+            - run: doctl auth init --access-token "${DIGITALOCEAN_API_KEY}"
+            - run: echo "export EXTERNAL_IP=$(wget -qO- http://checkip.amazonaws.com/)" >> $BASH_ENV
+            - run: doctl compute firewall add-rules --inbound-rules "protocol:tcp,ports:22,address:${EXTERNAL_IP}/32" "${DIGITALOCEAN_FIREWALL_ID}"
+            - run: ssh-keyscan -H 67.207.69.0 >> ~/.ssh/known_hosts
+            - run: vendor/bin/dep -vvv deploy "https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/latest/artifacts" "${CIRCLE_TOKEN}"
+            - run: doctl compute firewall remove-rules --inbound-rules "protocol:tcp,ports:22,address:${EXTERNAL_IP}/32" "${DIGITALOCEAN_FIREWALL_ID}"
+
+workflows:
+    version: 2
+    install-and-test:
+        jobs:
+            - install
+            - coding-standards:
+                  requires:
+                      - install
+            - static-analysis:
+                  requires:
+                      - install
+            - test:
+                  requires:
+                      - install
+            - build:
+                  requires:
+                      - coding-standards
+                      - static-analysis
+                      - test
+                  filters:
+                      branches:
+                          only: main
+            - deploy:
+                  requires:
+                      - build
+                  filters:
+                      branches:
+                          only: unused
