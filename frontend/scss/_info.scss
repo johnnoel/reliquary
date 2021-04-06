@@ -1,12 +1,17 @@
 .info {
     box-sizing: border-box;
-    padding: 25px 0 25px 45px;
+    padding: 15px 35px 15px 35px;
     position: relative;
     background: $beige2;
     box-shadow: 3px 3px 0 0 #A9A48B;
     border-left: 13px solid $brown1;
-    line-height: 1;
-    font-size: 24px;
+    line-height: 1.25;
+    font-size: 18px;
+
+    @include mq($from: desktop) {
+        padding: 25px 45px 25px 45px;
+        font-size: 24px;
+    }
 
     &:before {
         content: '';

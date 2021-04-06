@@ -5,22 +5,32 @@
     border: none;
     background: $beige4;
     color: $brown1; // should be $brown2 as currently doesn't even pass WCAG AA
-    padding: 12px 11px 12px 47px;
+    padding: 10px 12px 10px 44px;
     position: relative;
     cursor: pointer;
     text-align: left;
-    font-size: 24px;
-    line-height: 1;
+    font-size: 20px;
+    line-height: 1.2;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;
+
+    @include mq($from: desktop) {
+        padding: 12px 11px 12px 47px;
+        font-size: 24px;
+    }
 
     i {
         position: absolute;
         top: 12px;
         left: 11px;
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         background: $brown1;
+
+        @include mq($from: desktop) {
+            width: 24px;
+            height: 24px;
+        }
     }
 
     & + & {
@@ -42,12 +52,16 @@
         }
 
         &:before {
-            left: -60px;
+            left: -40px;
             top: 50%;
             transform: translateY(-50%);
             width: 40px;
             height: 30px;
             background: url(../img/select.png) no-repeat 0 0;
+
+            @include mq($from: desktop) {
+                left: -60px;
+            }
         }
 
         &:after {
@@ -63,8 +77,13 @@
 
 .btnlist {
     border-left: 14px solid $beige4;
-    padding-left: 54px;
+    padding-left: 34px;
     position: relative;
+    margin: 0 0 35px;
+
+    @include mq($from: desktop) {
+        padding-left: 54px;
+    }
 
     &:before {
         content: '';

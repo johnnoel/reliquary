@@ -10,7 +10,7 @@
         <meta property="og:url" content="{{ app.request.uri }}">
         <meta property="og:title" content="Reliquary Message System">
         <meta property="og:description" content="Inspired by the NieR Automata Reliquary System, choose a message to leave for others">
-        <meta property="og:image" content="">
+        <meta property="og:image" content="{{ absolute_url(asset('img/opengraph-default.png')) }}">
     {% endblock %}
 
     <title>{% block title %}{% endblock %}{% if block('title') is not empty %} : {% endif %}Reliquary Message System</title>

@@ -1,4 +1,8 @@
-@import '~normalize.css/normalize.css';
+$mq-breakpoints: (
+    mobile: 320px,
+    tablet: 740px,
+    desktop: 980px,
+);
 
 $red: #9C5448;
 $brown1: #4D4941; // borders, active button background
@@ -7,6 +11,9 @@ $beige1: #C2BFA5; // page background
 $beige2: #D6D3B9; // modal background, brighter than beige1
 $beige3: #B0AC97; // body report button background
 $beige4: #A9A48B; // button background
+
+@import '~normalize.css/normalize.css';
+@import '~sass-mq/_mq.scss';
 
 @import 'home'; // homepage styles
 @import 'bodyreport'; // body report page styles
@@ -23,11 +30,15 @@ body {
     font-style: normal;
     background: $beige1 url(../img/grid.png) repeat 0 0;
     color: $brown2;
+    padding: 15px 0 25px 0;
     min-height: 100%;
-    padding: 35px 0 65px 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+
+    @include mq($from: desktop) {
+        padding: 35px 0 65px 0;
+    }
 
     &.wf-active {
         font-weight: 600;
@@ -48,19 +59,28 @@ a {
 .container {
     border-top: 2px solid $brown1;
     border-bottom: 2px solid $brown1;
-    padding: 55px 65px 25px 60px;
+    padding: 45px 25px 25px 20px;
     position: relative;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 
+    @include mq($from: desktop) {
+        padding: 55px 65px 25px 60px;
+    }
+
     &:before, &:after {
         content: '';
         position: absolute;
-        left: 60px;
+        left: 20px;
         height: 35px;
-        width: calc(100% - 120px);
+        width: calc(100% - 60px);
         background: url(../img/divider.png) repeat-x -60px 0;
+
+        @include mq($from: desktop) {
+            left: 60px;
+            width: calc(100% - 120px);
+        }
     }
 
     &:before {
@@ -75,9 +95,13 @@ a {
 // text shadow title
 .shadowtitle {
     text-transform: uppercase;
-    line-height: 1;
-    font-size: 64px;
+    line-height: 1.2;
+    font-size: 42px;
     color: #434137;
     text-shadow: 8px 8px 0 #8f8d78;
-    margin: 0;
+    margin: 0 0 35px;
+
+    @include mq($from: desktop) {
+        font-size: 64px;
+    }
 }
