@@ -4,13 +4,17 @@
     }
 
     &-partselector {
-        width: 93.75vh;
         margin: 0 auto 45px;
         border-top: 3px solid $brown1;
         border-bottom: 3px solid $brown1;
         padding: 37px 0;
         text-align: center;
-        font-size: 26px;
+        font-size: 22px;
+
+        @include mq($from: desktop) {
+            font-size: 26px;
+            width: 93.75%;
+        }
     }
 
     &-btn {
@@ -18,13 +22,24 @@
         background: none;
         border: none;
         padding: 4px;
-        line-height: 1;
-        text-decoration: underline;
+        line-height: 1.2;
         cursor: pointer;
         margin-bottom: 4px;
 
+        > span {
+            text-decoration: underline;
+        }
+
         & + & {
             margin-left: 12px;
+        }
+
+        &:first-of-type::before {
+            content: '"';
+        }
+
+        &:last-of-type::after {
+            content: '."';
         }
 
         &.active {
@@ -35,8 +50,11 @@
     }
 
     .btnlist {
-        width: 32%;
         margin: 0 auto 45px;
+
+        @include mq($from: desktop) {
+            width: 32%;
+        }
     }
 }
 
@@ -46,12 +64,16 @@
 
 .optionselector {
     &-container {
-        width: 43vh;
         height: 517px;
         margin: 0 auto 40px;
         border-left: 13px solid #A9A48B;
         position: relative;
-        padding-left: 52px;
+        padding-left: 34px;
+
+        @include mq($from: desktop) {
+            width: 43%;
+            padding-left: 52px;
+        }
 
         &:before {
             content: '';
@@ -68,13 +90,19 @@
     &-modal {
         background: $beige2;
         position: absolute;
-        left: 52px;
+        left: 34px;
         top: 0;
-        width: 100%;
+        width: calc(100% - 34px);
         height: 100%;
+        padding: 15px 10px 15px 0;
         box-shadow: 3px 3px 0 0 #A9A48B;
-        padding: 15px 20px 15px 0;
         box-sizing: border-box;
+
+        @include mq($from: desktop) {
+            left: 52px;
+            width: calc(100% - 52px);
+            padding: 15px 20px 15px 0;
+        }
 
         &:before, &:after {
             content: '';
@@ -105,11 +133,16 @@
     }
 
     &-option {
-        font-size: 24px;
-        line-height: 1;
-        padding: 20px 0 20px 20px;
+        font-size: 20px;
+        line-height: 1.1;
+        padding: 15px;
         cursor: pointer;
         position: relative;
+
+        @include mq($from: desktop) {
+            font-size: 24px;
+            padding: 20px 0 20px 20px;
+        }
 
         &.active {
             background: #4D4941;

@@ -16,17 +16,16 @@ const ChooseMessage = ({ user }: ChooseMessageProps) => {
     return <>
         <div className="choosemessage-container">
             <div className="choosemessage-partselector">
-                &quot;
-                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 0 })} onClick={() => setActive(0)}>[{getOption(0, selected[0])}]</button>
-                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 1 })} onClick={() => setActive(1)}>[{getOption(1, selected[1])}]</button>
-                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 2 })} onClick={() => setActive(2)}>[{getOption(2, selected[2])}]</button>
-                .&quot;
+                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 0 })} onClick={() => setActive(0)}>[<span>{getOption(0, selected[0])}</span>]</button>
+                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 1 })} onClick={() => setActive(1)}>[<span>{getOption(1, selected[1])}</span>]</button>
+                <button type="button" className={classNames('choosemessage-btn', { 'active': active === 2 })} onClick={() => setActive(2)}>[<span>{getOption(2, selected[2])}</span>]</button>
             </div>
 
             {(active !== null) ? <OptionSelector options={options[active]} selected={selected[active]} onSelect={(sel) => {
                 const newSelected = selected.slice(0);
                 newSelected[active] = sel;
                 setSelected(newSelected);
+                setActive(null);
 
                 if (newSelected.filter(s => s !== undefined).length < 3) {
                     return;
